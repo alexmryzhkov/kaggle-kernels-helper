@@ -23,8 +23,9 @@ def main(kernel_url, fname):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome('./chromedriver', chrome_options=chrome_options,
-      service_args=['--verbose'])
+    # service_args is not a valid parameter for Chrome driver. Using the modern
+    # "options" argument keeps compatibility with recent Selenium versions.
+    driver = webdriver.Chrome('./chromedriver', options=chrome_options)
 
     driver.get(kernel_url)
     driver.find_element_by_xpath("//span[contains(@class, 'fa fa-ellipsis-h')]").click()
